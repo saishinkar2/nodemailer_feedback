@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
 
     const mailOptions = {
         from: process.env.EMAIL_USER, // Sender address
-        to: 'your-email@example.com', // List of recipients
+        to: 'saishinkarwebsite@example.com', // List of recipients
         subject: 'New Feedback Received',
         text: `Feedback: ${feedback}`,
     };
