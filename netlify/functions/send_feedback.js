@@ -13,6 +13,8 @@ exports.handler = async (event, context) => {
     // Create a Nodemailer transporter using your email service (e.g., Gmail, SMTP)
     let transporter = nodemailer.createTransport({
         service: 'gmail',
+        secure: true,
+        port: 465,
         auth: {
             user: process.env.EMAIL_USER, // Use environment variables for security
             pass: process.env.EMAIL_PASS,
