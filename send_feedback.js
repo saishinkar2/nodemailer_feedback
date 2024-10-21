@@ -12,8 +12,6 @@ exports.handler = async (event, context) => {
     // Parse the feedback from the request body
     const { feedback } = JSON.parse(event.body);
 
-    EMAIL_USER: "sshinkar83@gmail.com"
-    EMAIL_PASS: "anvjsgpxyretvtfa"
 
     // Set up Nodemailer transporter
     let transporter = nodemailer.createTransport({
@@ -29,7 +27,7 @@ exports.handler = async (event, context) => {
     // Configure email details
     const mailOptions = {
         from: process.env.EMAIL_USER, // Sender address
-        to: 'saishinkarwebsite@example.com', // Recipient email address
+        to: 'your-email@example.com', // Recipient email address
         subject: 'New Feedback Received',
         text: `Feedback: ${feedback}`,
     };
