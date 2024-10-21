@@ -11,41 +11,29 @@
 </head>
 <body>
 
-<div class="container mt-5">
-    <h2>Feedback Form</h2>
-    <form id="feedbackForm">
-        <div class="mb-3">
-            <label for="userFeedback" class="form-label">Your Feedback</label>
-            <textarea class="form-control" id="userFeedback" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Feedback</button>
-    </form>
-    <div class="feedback mt-3"></div> <!-- This is where the feedback message will appear -->
-</div>
-
-<!-- Feedback form submission script -->
-<script>
-   $('#feedbackForm').submit(function (event) {
-        event.preventDefault();
-        var feedback = $('#userFeedback').val();
-        
-        $.ajax({
-            type: 'POST',
-            url: '/.netlify/functions/sendFeedback',  // The Netlify function endpoint
-            data: JSON.stringify({ feedback: feedback }),
-            contentType: 'application/json',
-            success: function(response) {
-                const feedbackMessage = $('<div class="alert alert-success mt-3">Thank you for your feedback! Your message has been sent.</div>');
-                $('.feedback').append(feedbackMessage);
-                $('#userFeedback').val(''); // Clear the textarea
-            },
-            error: function() {
-                const errorMessage = $('<div class="alert alert-danger mt-3">There was an error sending your feedback.</div>');
-                $('.feedback').append(errorMessage);
-            }
-        });
-    });
-</script>
+    <form id="feedbackForm" action="/.netlify/functions/sendFeedback" method="POST">
+        <label for="feedback">Your Feedback:</label>
+        <textarea id="feedback" name="feedback" required></textarea>
+        <button type="submit">Submit Feedback</button>
+      </form>
+      
+      <script>
+      document.getElementById('feedbackForm').addEventListener('submit', async function(event) {
+          event.preventDefault();
+          const feedback = document.getElementById('feedback').value;
+      
+          const response = await fetch('/.netlify/functions/sendFeedback', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ feedback })
+          });
+      
+          const result = await response.json();
+          alert(result.message);
+      });
+      </script>
 
 </body>
 </html>
